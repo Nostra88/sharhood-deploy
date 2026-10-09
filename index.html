@@ -27,7 +27,7 @@ document.getElementById("go").onclick=async()=>{
   const chain=await eth.request({method:"eth_chainId"});
   if(chain!==CHAIN){out.textContent="Mauvais réseau. Passe sur Robinhood Testnet.";return;}
   out.textContent="Envoi... confirme dans MetaMask.";
-  const tx=await eth.request({method:"eth_sendTransaction",params:[{from:acc[0],to:FACTORY,data:DATA,gas:"0x16e360"}]});
+  const tx=await eth.request({method:"eth_sendTransaction",params:[{from:acc[0],to:FACTORY,data:DATA,gas:"0x4c4b40"}]});
   out.innerHTML="Envoyé.<br><code>"+tx+"</code>";
 };
 </script></body></html>
