@@ -3,20 +3,23 @@
 <title>sharhood</title>
 <style>body{margin:0;background:#000;color:#fff;font-family:-apple-system,sans-serif}.wrap{padding:24px;max-width:520px}h1{font-size:28px}.g{color:#CCFF00}button{width:100%;margin-top:16px;border:0;border-radius:999px;background:#CCFF00;color:#000;font-weight:700;font-size:18px;padding:16px}p{color:#aaa}code{color:#CCFF00;word-break:break-all}</style></head>
 <body><div class="wrap"><h1>>>> <span class="g">sharhood</span></h1>
-<p>Create WOOD and open its pool. Test. Do not post yet.</p>
-<button id="go">Create WOOD pool</button><p id="out">Not sent.</p></div>
+<p>Buy 0.0001 ETH of WOOD in the pool. Test. Do not post yet.</p>
+<button id="go">Buy 0.0001</button><p id="out">Not sent.</p></div>
 <script>
-const FACTORY="0xb7c4e52b15611a8429e2b3ee0b891574a8190083";
-const DATA="0x198e2b8a00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000853686172686f6f640000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004574f4f4400000000000000000000000000000000000000000000000000000000";
+const ROUTER="0xCaf681a66D020601342297493863E78C959E5cb2";
+const WETH="0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73";
+const WOOD="0x1c273439580fd38372361d16d884223356a694b8";
 const CHAIN="0x1237";
+const pad=a=>a.toLowerCase().replace("0x","").padStart(64,"0");
 document.getElementById("go").onclick=async()=>{
   const out=document.getElementById("out");
   if(!window.ethereum){out.textContent="Open in MetaMask.";return;}
   const acc=await ethereum.request({method:"eth_requestAccounts"});
   const chain=await ethereum.request({method:"eth_chainId"});
   if(chain!==CHAIN){out.textContent="Wrong network. Robinhood, not Testnet.";return;}
+  const data="0x04e45aaf"+pad(WETH)+pad(WOOD)+pad("0x2710")+pad(acc[0])+pad("0x5af3107a4000")+pad("0x0")+pad("0x0");
   out.textContent="Confirm in MetaMask.";
-  const tx=await ethereum.request({method:"eth_sendTransaction",params:[{from:acc[0],to:FACTORY,data:DATA,gas:"0x989680"}]});
+  const tx=await ethereum.request({method:"eth_sendTransaction",params:[{from:acc[0],to:ROUTER,data,value:"0x5af3107a4000",gas:"0x493e0"}]});
   out.innerHTML="Sent.<br><code>"+tx+"</code>";
 };
 </script></body></html>
