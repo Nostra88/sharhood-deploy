@@ -11,13 +11,13 @@ code{color:#CCFF00;word-break:break-all}
 </style></head>
 <body><div class="wrap">
 <h1>>>> <span class="g">sharhood</span></h1>
-<p>Usine d'essai. Crée le token WOOD. Pas encore achetable.</p>
-<button id="go">Créer WOOD</button>
-<p id="out">Pas encore créé.</p>
+<p>Achat d'essai. 0,001 ETH factice. Pas un vrai launch.</p>
+<button id="go">Acheter WOOD</button>
+<p id="out">Pas encore acheté.</p>
 </div>
 <script>
-const FACTORY="0xfceaC0d891D40a16A32966f9F7e74C22980E00eB";
-const DATA="0x198e2b8a00000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000853686172686f6f640000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004574f4f4400000000000000000000000000000000000000000000000000000000";
+const TOKEN="0x31e8dAd7Ecc47162A206e6307D570Ed25C865489";
+const DATA="0xd96a094a0000000000000000000000000000000000000000000000000000000000000000";
 const CHAIN="0xb626";
 document.getElementById("go").onclick=async()=>{
   const out=document.getElementById("out");
@@ -27,7 +27,7 @@ document.getElementById("go").onclick=async()=>{
   const chain=await eth.request({method:"eth_chainId"});
   if(chain!==CHAIN){out.textContent="Mauvais réseau. Passe sur Robinhood Testnet.";return;}
   out.textContent="Envoi... confirme dans MetaMask.";
-  const tx=await eth.request({method:"eth_sendTransaction",params:[{from:acc[0],to:FACTORY,data:DATA}]});
+  const tx=await eth.request({method:"eth_sendTransaction",params:[{from:acc[0],to:TOKEN,data:DATA,value:"0x38d7ea4c68000"}]});
   out.innerHTML="Envoyé.<br><code>"+tx+"</code>";
 };
 </script></body></html>
